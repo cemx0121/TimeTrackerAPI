@@ -5,7 +5,14 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTrackerAPI", "TimeTrackerAPI\TimeTrackerAPI.csproj", "{146AF74F-C107-4A5E-879C-3739AD94B0B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerModelLib", "TimeTrackerModelLib\TimeTrackerModelLib.csproj", "{6238BBAB-E257-43DF-B1DF-5BB36A413C55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTrackerModelLib", "TimeTrackerModelLib\TimeTrackerModelLib.csproj", "{6238BBAB-E257-43DF-B1DF-5BB36A413C55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerAPITest", "TimeTrackerAPITest\TimeTrackerAPITest.csproj", "{A6ED3B39-B07B-4757-BEE4-71D48C8338DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16405A18-D663-4015-91BF-6E1F1533BAA3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,10 @@ Global
 		{6238BBAB-E257-43DF-B1DF-5BB36A413C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6238BBAB-E257-43DF-B1DF-5BB36A413C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6238BBAB-E257-43DF-B1DF-5BB36A413C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6ED3B39-B07B-4757-BEE4-71D48C8338DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6ED3B39-B07B-4757-BEE4-71D48C8338DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6ED3B39-B07B-4757-BEE4-71D48C8338DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6ED3B39-B07B-4757-BEE4-71D48C8338DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

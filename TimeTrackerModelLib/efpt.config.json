@@ -1,6 +1,6 @@
 ﻿{
    "CodeGenerationMode": 2,
-   "ContextClassName": "time-tracker-dbContext",
+   "ContextClassName": "dbContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
@@ -15,7 +15,7 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[DailyWorkLocation]",
+         "Name": "[dbo].[JobPositions]",
          "ObjectType": 0
       },
       {
@@ -23,7 +23,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[UserProfile]",
+         "Name": "[dbo].[UserProfiles]",
          "ObjectType": 0
       },
       {
@@ -31,7 +31,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Workbooth]",
+         "Name": "[dbo].[WorkShifts]",
          "ObjectType": 0
       }
    ],

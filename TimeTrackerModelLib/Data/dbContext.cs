@@ -8,22 +8,22 @@ using TimeTrackerModelLib.Models;
 
 namespace TimeTrackerModelLib.Data
 {
-    public partial class timetrackerdbContext : DbContext
+    public partial class dbContext : DbContext
     {
-        public timetrackerdbContext()
+        public dbContext()
         {
         }
 
-        public timetrackerdbContext(DbContextOptions<timetrackerdbContext> options)
+        public dbContext(DbContextOptions<dbContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<DailyWorkLocation> DailyWorkLocations { get; set; }
+        public virtual DbSet<JobPosition> JobPositions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
-        public virtual DbSet<Workbooth> Workbooths { get; set; }
+        public virtual DbSet<WorkShift> WorkShifts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,39 +36,40 @@ namespace TimeTrackerModelLib.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DailyWorkLocation>(entity =>
-            {
-                entity.HasKey(e => e.WorkLocationId)
-                    .HasName("PK__DailyWor__0D3898FF231E89C1");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.DailyWorkLocations)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__DailyWork__UserI__01142BA1");
-
-                entity.HasOne(d => d.Workbooth)
-                    .WithMany(p => p.DailyWorkLocations)
-                    .HasForeignKey(d => d.WorkboothId)
-                    .HasConstraintName("FK__DailyWork__Workb__02084FDA");
-            });
-
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__Users__RoleId__06CD04F7");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Users__RoleId__114A936A");
             });
 
             modelBuilder.Entity<UserProfile>(entity =>
             {
                 entity.HasKey(e => e.ProfileId)
-                    .HasName("PK__UserProf__290C88E481893BC8");
+                    .HasName("PK__UserProf__290C88E4D2375B91");
+
+                entity.HasOne(d => d.JobPosition)
+                    .WithMany(p => p.UserProfiles)
+                    .HasForeignKey(d => d.JobPositionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserProfi__JobPo__0C85DE4D");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserProfiles)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserProfi__UserI__7C4F7684");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserProfi__UserI__0B91BA14");
+            });
+
+            modelBuilder.Entity<WorkShift>(entity =>
+            {
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.WorkShifts)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__WorkShift__UserI__14270015");
             });
 
             OnModelCreatingPartial(modelBuilder);

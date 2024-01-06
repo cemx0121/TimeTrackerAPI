@@ -18,9 +18,8 @@ namespace TimeTrackerModelLib.Models
         [Key]
         public int RoleId { get; set; }
         [Required]
-        [Column("Role")]
         [StringLength(50)]
-        public string Role1 { get; set; }
+        public string UserRole { get; set; }
 
         [InverseProperty("Role")]
         public virtual ICollection<User> Users { get; set; }

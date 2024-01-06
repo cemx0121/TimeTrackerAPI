@@ -8,19 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeTrackerModelLib.Models
 {
-    [Table("Workbooth")]
-    public partial class Workbooth
+    public partial class JobPosition
     {
-        public Workbooth()
+        public JobPosition()
         {
-            DailyWorkLocations = new HashSet<DailyWorkLocation>();
+            UserProfiles = new HashSet<UserProfile>();
         }
 
         [Key]
-        public int WorkboothId { get; set; }
-        public bool? IsAvailable { get; set; }
+        public int JobPositionId { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string Position { get; set; }
 
-        [InverseProperty("Workbooth")]
-        public virtual ICollection<DailyWorkLocation> DailyWorkLocations { get; set; }
+        [InverseProperty("JobPosition")]
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

@@ -8,29 +8,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeTrackerModelLib.Models
 {
-    [Index("Email", Name = "UQ__Users__A9D105349A5637CB", IsUnique = true)]
+    [Index("Email", Name = "UQ__Users__A9D105347BD81578", IsUnique = true)]
     public partial class User
     {
         public User()
         {
-            DailyWorkLocations = new HashSet<DailyWorkLocation>();
             UserProfiles = new HashSet<UserProfile>();
+            WorkShifts = new HashSet<WorkShift>();
         }
 
         [Key]
         public int UserId { get; set; }
+        [Required]
         [StringLength(255)]
         public string Email { get; set; }
+        [Required]
         [StringLength(255)]
         public string PasswordHash { get; set; }
-        public int? RoleId { get; set; }
+        public int RoleId { get; set; }
 
         [ForeignKey("RoleId")]
         [InverseProperty("Users")]
         public virtual Role Role { get; set; }
         [InverseProperty("User")]
-        public virtual ICollection<DailyWorkLocation> DailyWorkLocations { get; set; }
-        [InverseProperty("User")]
         public virtual ICollection<UserProfile> UserProfiles { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<WorkShift> WorkShifts { get; set; }
     }
 }

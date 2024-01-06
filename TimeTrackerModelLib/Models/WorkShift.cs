@@ -8,23 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeTrackerModelLib.Models
 {
-    [Table("DailyWorkLocation")]
-    public partial class DailyWorkLocation
+    public partial class WorkShift
     {
         [Key]
-        public int WorkLocationId { get; set; }
-        public int? UserId { get; set; }
+        public int WorkShiftId { get; set; }
+        public int UserId { get; set; }
         [Column(TypeName = "date")]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
+        [Required]
         [StringLength(50)]
-        public string LocationType { get; set; }
-        public int? WorkboothId { get; set; }
+        public string Location { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
         [ForeignKey("UserId")]
-        [InverseProperty("DailyWorkLocations")]
+        [InverseProperty("WorkShifts")]
         public virtual User User { get; set; }
-        [ForeignKey("WorkboothId")]
-        [InverseProperty("DailyWorkLocations")]
-        public virtual Workbooth Workbooth { get; set; }
     }
 }

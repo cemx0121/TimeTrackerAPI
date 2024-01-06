@@ -8,21 +8,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeTrackerModelLib.Models
 {
-    [Table("UserProfile")]
     public partial class UserProfile
     {
         [Key]
         public int ProfileId { get; set; }
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
+        public int JobPositionId { get; set; }
+        [Required]
         [StringLength(255)]
         public string FirstName { get; set; }
+        [Required]
         [StringLength(255)]
         public string LastName { get; set; }
+        [Required]
         [StringLength(255)]
         public string Address { get; set; }
-        [StringLength(20)]
+        [Required]
+        [StringLength(8)]
         public string PhoneNumber { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime HiredDate { get; set; }
+        [Required]
+        [StringLength(2500)]
+        public string ImagePath { get; set; }
 
+        [ForeignKey("JobPositionId")]
+        [InverseProperty("UserProfiles")]
+        public virtual JobPosition JobPosition { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("UserProfiles")]
         public virtual User User { get; set; }

@@ -4,9 +4,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// Add JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -16,20 +13,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("your_longer_secret_key_here_at_least_16_characters")),
             ValidateIssuer = false,
             ValidateAudience = false,
-            // Set other options as needed
         };
 
         options.Events = new JwtBearerEvents
         {
-            OnChallenge = context =>
+            OnMessageReceived = context =>
             {
-                // Skip the default logic.
-                context.HandleResponse();
-
-                context.Response.StatusCode = 401;
-                context.Response.ContentType = "application/json";
-                var result = System.Text.Json.JsonSerializer.Serialize(new { message = "Invalid token" });
-                return context.Response.WriteAsync(result);
+                if (context.Request.Cookies.ContainsKey("AuthToken"))
+                {
+                    context.Token = context.Request.Cookies["AuthToken"];
+                }
+                return Task.CompletedTask;
             }
         };
     });
@@ -46,7 +40,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+        builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
         );
 });
 
@@ -61,10 +55,12 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "api/help";
 });
 
+
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors("AllowAll");
+
 
 app.MapControllers();
 

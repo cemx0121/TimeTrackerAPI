@@ -5,9 +5,16 @@ namespace TimeTrackerAPI.Managers
 {
     public interface IUserManager
     {
-        AuthenticatedUserDTO Authenticate(string email, string password);
+        (UserProfileDTO userProfile, string token) Authenticate(string email, string password);
         User CreateUser(User user, UserProfile userProfile);
 
-        UserProfileDTO GetUserProfile(int userId);
+        UserProfileDTO GetUserProfileByEmail(string email);
+
+        void UpdateUserRoleAndJobPosition(string email, UserUpdateAdminDTO updateDto);
+        void UpdateUserProfile(string email, UserUpdateDTO updateDto);
+
+        List<UserProfileDTO> GetAllUserProfiles();
+
+        void DeleteUserById(int id);
     }
 }
